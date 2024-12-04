@@ -3,8 +3,8 @@
 # Students
 
 - Responsible of the codes: Gaspard Durnez
-- Responsible of the documentation: 
-- Responsible of the unit tests: 
+- Responsible of the documentation: Nioré Corentin 
+- Responsible of the unit tests: Raphaël Hierso--Iglesias
 
 
 
@@ -17,18 +17,28 @@
 *Did you use defensive programming? if so, where and how?*
 
 <In this file, 3 players have been created:
-- Exhaustive:
-
+- Exhaustive
 - Backtracking
 - Sorted Neighbors
+- Greedy
+- GreedyEachCheese
+- GreedyEachTurn
 We were aiming at finding the shortest path to multiple cheese with the
 most economical time cost.
 
-Exhaustive player:
+Exhaustive:
 
-Bactracking player:
+Backtracking:
 
-Sorted neighbor
+Sorted Neighbors:
+
+Greedy:
+
+GreedyEachTurn:
+
+GreedyEachCheese:
+
+
 
 >
 
@@ -40,7 +50,7 @@ Sorted neighbor
 *What are they made for?*
 *Did you change some game parameters? If so, which ones and why?*
 
-<We visualized the three players on 15*15 maze with 9 cheeses, for maintaining reasonable compytatuinal time.>
+<We visualized the three players on 15*15 maze with 9 cheeses, for maintaining reasonable computatiunal time.>
 
 
 
@@ -69,7 +79,7 @@ solved the maze.>
 
 *Anything to say regarding the documentation?*
 
-<For the next session, we want to use the module that will generate html pages for the documentation.>
+
 
 
 
