@@ -218,7 +218,7 @@ class Greedy (Player):
     def simplify_graph( self: Self,
                         maze: Maze,
                         cheeses: List[Integral],
-                        starting_vertexe: Integral
+                        starting_vertex: Integral
                         ) -> Graph:
         """
             Create the simplify graph with only the cheeses and the source
