@@ -86,7 +86,7 @@ class Greedy (Player):
         """
         # Create the simplify graph with only the cheeses and the source
         # The "weight" of edges is a couple of the distance between the two vertices and the way between them
-        self.simplified_graph = self.simplify_graph(maze, game_state)
+        self.simplified_graph = self.simplify_graph(maze, game_state.cheese, game_state.player_locations[self.name])
 
         
         # Find the greedy permutation
