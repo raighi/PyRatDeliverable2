@@ -89,7 +89,7 @@ class GreedyEachTurn (Player):
         """
         # Create the simplify graph with only the cheeses and the source
         # The "weight" of edges is a couple of the distance between the two vertices and the way between them
-        self.simplified_graph = self.simplify_graph(maze, game_state)
+        self.simplified_graph = self.simplify_graph(maze, game_state.cheese, game_state.player_locations[self.name])
 
         # Find the closest cheese
         self.closest_cheese = min( game_state.cheese, key = lambda cheese: self.simplified_graph[game_state.player_locations[self.name]][cheese]["distance"])
@@ -222,23 +222,25 @@ class GreedyEachTurn (Player):
     
     def simplify_graph( self: Self,
                         maze: Maze,
-                        game_state: GameState
+                        cheeses: List[Integral],
+                        starting_vertexe: Integral
                         ) -> Graph:
         """
             Create the simplify graph with only the cheeses and the source
             The "weight" of edges is a couple of the distance between the two vertices and the way between them
             In:
                 * maze : The maze.
-                * graph: The graph to simplify.
+                * cheeses : The list of cheeses.
+                * starting_vertexe : The starting vertexe.
             Out:
                 * The simplified graph.
         """
 
-        simplified_graph = {cheese: {} for cheese in game_state.cheese}
-        simplified_graph[game_state.player_locations[self.name]] = {}
+        simplified_graph = {cheese: {} for cheese in cheeses}
+        simplified_graph[starting_vertexe] = {}
 
-        for vertex1 in game_state.cheese + [game_state.player_locations[self.name]]:
-            distance, routing_table = self.dyjkstra(maze, vertex1, game_state.cheese + [game_state.player_locations[self.name]])
+        for vertex1 in cheeses + [starting_vertexe]:
+            distance, routing_table = self.dyjkstra(maze, vertex1, cheeses + [starting_vertexe])
             for vertex2 in simplified_graph:
                 if vertex2 != vertex1 and vertex2 not in simplified_graph[vertex1]:
                     way_between = self.find_way(vertex2, routing_table)
