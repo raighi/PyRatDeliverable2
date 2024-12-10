@@ -16,27 +16,21 @@
 *What is the complexity of these functions?*
 *Did you use defensive programming? if so, where and how?*
 
-<In this file, 3 players have been created:
+<In this file, 3 players have been created (Exhaustive have been had just to be compared with Greedy):
 - Exhaustive
-- Backtracking
-- Sorted Neighbors
 - Greedy
 - GreedyEachCheese
 - GreedyEachTurn
 We were aiming at finding the shortest path to multiple cheese with the
 most economical time cost.
 
-Exhaustive:
+Exhaustive: Perform a TSP to know the best order to catch the cheeses fastly
 
-Backtracking:
+Greedy: Greedy algorithm using the heuristic : "go to the closest cheese"
 
-Sorted Neighbors:
+GreedyEachTurn: Same as Greedy but when it searchs for the next cheese it takes in count the cheeses already taken
 
-Greedy:
-
-GreedyEachTurn:
-
-GreedyEachCheese:
+GreedyEachCheese: Same as GreedyEachTurn but if the cheese it was chasing is catch by the opponent it goes to the next cheese
 
 
 
