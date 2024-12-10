@@ -21,6 +21,7 @@
 - Greedy
 - GreedyEachCheese
 - GreedyEachTurn
+- Cluster_man
 We were aiming at finding the shortest path to multiple cheese with the
 most economical time cost.
 
@@ -31,6 +32,8 @@ Greedy: Greedy algorithm using the heuristic : "go to the closest cheese"
 GreedyEachTurn: Same as Greedy but when it searchs for the next cheese it takes in count the cheeses already taken
 
 GreedyEachCheese: Same as GreedyEachTurn but if the cheese it was chasing is catch by the opponent it goes to the next cheese
+
+Cluster_man: Create clusters of cheese and take it into account when searching the closest cheese. Have to be improves with a second field of larger clusters and machine learning
 
 
 
@@ -44,7 +47,7 @@ GreedyEachCheese: Same as GreedyEachTurn but if the cheese it was chasing is cat
 *What are they made for?*
 *Did you change some game parameters? If so, which ones and why?*
 
-<visualize_Greedy, visualize_GreedyEachCheese and visualize_GreedyEachTurn display a game with just the player.
+<visualize_... display a game with just the player.
 match_Greedy_GreedyEachTurn and match_GreedyEachCheese_GreedyEachTurn display a game where the two players clash.
 >
 
