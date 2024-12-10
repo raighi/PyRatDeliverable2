@@ -22,6 +22,8 @@
 - GreedyEachCheese
 - GreedyEachTurn
 - Cluster_man
+- AI
+- AI_enhancement
 We were aiming at finding the shortest path to multiple cheese with the
 most economical time cost.
 
@@ -35,6 +37,9 @@ GreedyEachCheese: Same as GreedyEachTurn but if the cheese it was chasing is cat
 
 Cluster_man: Create clusters of cheese and take it into account when searching the closest cheese. Have to be improves with a second field of larger clusters and machine learning
 
+AI: Neural network that failed to be usefull
+
+AI_enhancement: program to reinforce AI
 
 
 >
@@ -48,7 +53,7 @@ Cluster_man: Create clusters of cheese and take it into account when searching t
 *Did you change some game parameters? If so, which ones and why?*
 
 <visualize_... display a game with just the player.
-match_Greedy_GreedyEachTurn and match_GreedyEachCheese_GreedyEachTurn display a game where the two players clash.
+match_... display a game where the two players clash.
 >
 
 # Unit tests
@@ -68,7 +73,10 @@ solved the maze.>
 *Did you provide anything in the `utils` directory?*
 *What are those files?*
 
-<generalutils: centralizes all the main methods used>
+<generalutils: centralizes all the main methods used
+current_network: current network use by AI
+412925.0_43save: save of the best network already made (in 20 hours of reinforcement)
+>
 
 # Data
 <compare_exhaustive_greedy: measures time of preprocessing and turns needed to catch all cheeses for exhaustive and greedy, and compare them on the four graphs in .png.
