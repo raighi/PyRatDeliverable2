@@ -17,10 +17,13 @@ from typing import *
 from typing_extensions import *
 from numbers import *
 from pyrat import Graph
+import sys
+import os
+sys.path.append(os.path.join("..", "utils"))
+from generalutils import simplify_graph
 
 # PyRat imports
 from pyrat import Player, Maze, GameState, Action
-from itertools import permutations
 
 #####################################################################################################################################################
 ###################################################################### CLASSES ######################################################################
@@ -86,11 +89,11 @@ class Greedy (Player):
         """
         # Create the simplify graph with only the cheeses and the source
         # The "weight" of edges is a couple of the distance between the two vertices and the way between them
-        self.simplified_graph = self.simplify_graph(maze, game_state.cheese, game_state.player_locations[self.name])
+        self.simplified_graph = simplify_graph(maze, game_state.cheese, game_state.player_locations[self.name])
 
         
         # Find the greedy permutation
-        self.greedy_permutation = self.find_greedy_permutation(game_state)
+        self.greedy_permutation = self.find_greedy_permutation(game_state.cheese, game_state.player_locations[self.name])
 
 
         # Find the whole way
@@ -153,106 +156,11 @@ class Greedy (Player):
     
 #####################################################################################################################################################
 #####################################################################################################################################################
-
-    def dyjkstra ( self: Self,
-                    graph:  Graph,
-                    source: Integral,
-                    visite_to_stop: List[Integral]
-                  ) ->      Tuple[Dict[Integral, float], Dict[Integral, Optional[Integral]]]:
-        """
-            This method performs the Dyjkstra algorithm on a graph.
-            In:
-                * graph:  The graph on which we want to perform the Dyjkstra algorithm.
-                * source: The source vertex.
-                * visite_to_stop: The list of vertices to visit before stopping the algorithm.
-            Out:
-                * distances:     The distances from the source vertex.
-                * routing_table: The routing table.
-        """
-        
-        # Initialization
-        distances = {vertex : float('inf') for vertex in graph.vertices}
-        distances[source] = 0
-        routing_table = {vertex : None for vertex in graph.vertices}
-        is_visited = {vertex : False for vertex in graph.vertices}
-        visited_to_stop = {vertex : False for vertex in visite_to_stop}
-        visited_to_stop[source] = True
-
-        # Main loop
-        while not all(visited_to_stop.values()):
-
-            # Find the closest vertex
-            closest_vertex = min( (vertex for vertex in graph.vertices if not is_visited[vertex]), key=distances.get)
-            is_visited[closest_vertex] = True
-            visited_to_stop[closest_vertex] = True
-
-            # Update the distances
-            for neighbor in graph.get_neighbors(closest_vertex):
-                if distances[neighbor] > distances[closest_vertex] + graph.get_weight(closest_vertex, neighbor):
-                    distances[neighbor] = distances[closest_vertex] + graph.get_weight(closest_vertex, neighbor)
-                    routing_table[neighbor] = closest_vertex
-        
-        return distances, routing_table
-
-
-    def find_way( self: Self,
-                    vertex: Integral,
-                    routing_table: Dict[Integral, Optional[Integral]]
-                   ) -> List[Integral]:
-        """
-            This method returns the way from vertex1 to vertex2 using the routing table.
-            (the list contain the destination vertex but not the source vertex)
-            In:
-                * vertex:       The source vertex.
-                * routing_table: The routing table.
-            Out:
-                * way: The way from vertex1 to vertex2.
-        """
-        way = []
-        while routing_table[vertex] is not None:
-            way.append(vertex)
-            vertex = routing_table[vertex]     
-        way.reverse()
-        return way
-    
-    def simplify_graph( self: Self,
-                        maze: Maze,
-                        cheeses: List[Integral],
-                        starting_vertex: Integral
-                        ) -> Graph:
-        """
-            Create the simplify graph with only the cheeses and the source
-            The "weight" of edges is a couple of the distance between the two vertices and the way between them
-            In:
-                * maze : The maze.
-                * cheeses : The list of cheeses.
-                * starting_vertexe : The starting vertexe.
-            Out:
-                * The simplified graph.
-        """
-
-        simplified_graph = {cheese: {} for cheese in cheeses}
-        simplified_graph[starting_vertexe] = {}
-
-        for vertex1 in cheeses + [starting_vertexe]:
-            distance, routing_table = self.dyjkstra(maze, vertex1, cheeses + [starting_vertexe])
-            for vertex2 in simplified_graph:
-                if vertex2 != vertex1 and vertex2 not in simplified_graph[vertex1]:
-                    way_between = self.find_way(vertex2, routing_table)
-                    simplified_graph[vertex1][vertex2] = {"distance" : distance[vertex2], "way" : way_between}
-
-                    # Adapt the way to go from vertex2 to vertex1
-                    way_between_inverse = [way_between[-1-i] for i in range(1, len(way_between))] # reverse the way and suppress the source
-                    way_between_inverse.append(vertex1)
-
-                    simplified_graph[vertex2][vertex1] = {"distance" : distance[vertex2], "way" : way_between_inverse}
-
-        return simplified_graph
     
     def permutation_to_way( self: Self,
                             permutation: List[Integral],
                             simplified_graph: Graph
-                          ) -> List[Tuple[Integral, Integral]]:
+                          ) -> List[Integral]:
         """
             This method returns the way that pass on all cheeses in the order of the permutation
             In:
@@ -269,21 +177,23 @@ class Greedy (Player):
         return way
     
     def find_greedy_permutation( self: Self,
-                              game_state: GameState
+                                cheeses: List[Integral],
+                                starting_vertexe: Integral
                               ) -> List[Integral]:
         """
             This method returns the greedy permutation of cheeses to visit.
             In:
-                * game_state: The state of the game.
+                * cheeses : The list of cheeses.
+                * starting_vertexe : The starting vertexe.
             Out:
                 * The greedy permutation
         """
-        is_visited_cheese = {cheese : False for cheese in game_state.cheese}
-        greedy_permutation = [game_state.player_locations[self.name]]
+        is_visited_cheese = {cheese : False for cheese in cheeses}
+        greedy_permutation = [starting_vertexe]
 
-        for _ in range(len(game_state.cheese)):
-            best_cheese = min( (cheese for cheese in game_state.cheese if not is_visited_cheese[cheese]), key=lambda x: self.simplified_graph[greedy_permutation[-1]][x]["distance"])
+        for _ in range(len(cheeses)):
+            best_cheese = min( (cheese for cheese in cheeses if not is_visited_cheese[cheese]), key=lambda cheese: self.simplified_graph[greedy_permutation[-1]][cheese]["distance"])
             greedy_permutation.append(best_cheese)
             is_visited_cheese[best_cheese] = True
         
-        return greedy_permutation 
+        return greedy_permutation
