@@ -44,9 +44,9 @@ GreedyEachCheese: Same as GreedyEachTurn but if the cheese it was chasing is cat
 *What are they made for?*
 *Did you change some game parameters? If so, which ones and why?*
 
-<We visualized the three players on 15*15 maze with 9 cheeses, for maintaining reasonable computatiunal time.>
-
-
+<visualize_Greedy, visualize_GreedyEachCheese and visualize_GreedyEachTurn display a game with just the player.
+match_Greedy_GreedyEachTurn and match_GreedyEachCheese_GreedyEachTurn display a game where the two players clash.
+>
 
 # Unit tests
 
@@ -65,9 +65,13 @@ solved the maze.>
 *Did you provide anything in the `utils` directory?*
 *What are those files?*
 
-<No utils files here.>
+<generalutils: centralizes all the main methods used>
 
+# Data
+<compare_exhaustive_greedy: measures time of preprocessing and turns needed to catch all cheeses for exhaustive and greedy, and compare them on the four graphs in .png.
+data_matchs_... : perform many games confronting two players and display the percentage of win for each one and the average difference of the scores.
 
+>
 
 # Documentation
 
