@@ -41,7 +41,7 @@ AI: Neural network that failed to be useful. The other methods provide a way to 
 
 AI_enhancement: program to reinforce AI
 
-
+We implemanted some of the player with a combination of object oriented programmation, but by defining some utils it was possible to program in a modulary way and reuse efficiently previous algorithms.
 >
 
 
@@ -88,6 +88,7 @@ data_matchs_... : perform many games confronting two players and display the per
 
 *Anything to say regarding the documentation?*
 
+We wrote documentation for the players, the utils, and the games. We tried to generate html documentation with pydoc (and it worked) but did not know how to share it in this archive.
 
 
 
