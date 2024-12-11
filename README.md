@@ -25,15 +25,15 @@
 - AI
 - AI_enhancement
 We were aiming at finding the shortest path to multiple cheese with the
-most economical time cost.
+most economical time cost. We also implemented player able to react to changes in the maze, that would be able to play against other players.
 
 Exhaustive: Perform a TSP to know the best order to catch the cheeses fastly. The complexity of the algorithm is exponential.
 
-Greedy: Greedy algorithm using the heuristic : "go to the closest cheese".
+Greedy: Greedy algorithm using the heuristic : "go to the closest cheese". The complexity of this algorithm depends mostly of the density of the maze. For T turns it could be O(C^2)+O(C*V^2log(v)) where C represents the number of cheese and V the vertices of the maze.
 
-GreedyEachTurn: Same as Greedy but when it searchs for the next cheese it takes in count the cheeses already taken
+GreedyEachTurn: Same as Greedy but when it searchs for the next cheese it takes in count the cheeses already taken. The complexity is polynomial, relatively of the number of cheese and of the number of turn. It depends mostly of the density of the maze.
 
-GreedyEachCheese: Same as GreedyEachTurn but if the cheese it was chasing is catch during the turn by the opponent it goes to the next nearest cheese the next turn.
+GreedyEachCheese: Same as GreedyEachTurn but if the cheese it was chasing is catch during the turn by the opponent it goes to the next nearest cheese the next turn. The complexity is about the same that the greedy or greedy each turn.
 
 Cluster_man: Luster_man uses another herustic : it creates clusters of cheese and takes it into account when searching the closest cheese. Have to be improved with a second field of larger clusters and machine learning, in order to take more efficient decisions.
 
@@ -52,8 +52,8 @@ AI_enhancement: program to reinforce AI
 *What are they made for?*
 *Did you change some game parameters? If so, which ones and why?*
 
-<visualize_... display a game with just the player.
-match_... display a game where the two players clash.
+<visualize_... display a game with just the player. We visualized all the players previosuly presented.
+match_... display a game where the two players clash. 
 >
 
 # Unit tests
@@ -64,7 +64,7 @@ match_... display a game where the two players clash.
 *Are there some missing tests you would have liked to make?*
 
 <We used the template file given in the session 2. We defined a maze and
-solved the maze.>
+solved the maze. It tests mostly the key method simplify_graph by checking its input and its output.>
 
 
 
@@ -74,7 +74,7 @@ solved the maze.>
 *What are those files?*
 
 <generalutils: centralizes all the main methods used
-current_network: current network use by AI
+current_network: current network used by AI
 412925.0_43save: save of the best network already made (in 20 hours of reinforcement)
 >
 
