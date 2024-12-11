@@ -16,7 +16,7 @@
 *What is the complexity of these functions?*
 *Did you use defensive programming? if so, where and how?*
 
-<In this file, 3 players have been created (Exhaustive have been had just to be compared with Greedy):
+<In this file, 7 players have been created (Exhaustive have been had just to be compared with Greedy):
 - Exhaustive
 - Greedy
 - GreedyEachCheese
@@ -27,17 +27,17 @@
 We were aiming at finding the shortest path to multiple cheese with the
 most economical time cost.
 
-Exhaustive: Perform a TSP to know the best order to catch the cheeses fastly
+Exhaustive: Perform a TSP to know the best order to catch the cheeses fastly. The complexity of the algorithm is exponential.
 
-Greedy: Greedy algorithm using the heuristic : "go to the closest cheese"
+Greedy: Greedy algorithm using the heuristic : "go to the closest cheese".
 
 GreedyEachTurn: Same as Greedy but when it searchs for the next cheese it takes in count the cheeses already taken
 
-GreedyEachCheese: Same as GreedyEachTurn but if the cheese it was chasing is catch by the opponent it goes to the next cheese
+GreedyEachCheese: Same as GreedyEachTurn but if the cheese it was chasing is catch during the turn by the opponent it goes to the next nearest cheese the next turn.
 
-Cluster_man: Create clusters of cheese and take it into account when searching the closest cheese. Have to be improves with a second field of larger clusters and machine learning
+Cluster_man: Luster_man uses another herustic : it creates clusters of cheese and takes it into account when searching the closest cheese. Have to be improved with a second field of larger clusters and machine learning, in order to take more efficient decisions.
 
-AI: Neural network that failed to be usefull
+AI: Neural network that failed to be useful. The other methods provide a way to store new entrances on the neural network (get_entrance,edge_to_entrance_index), and the forward_propagation compute the output of the neural network. The main factor of complexity is the forward propogation which is in a complexity polynomial relatively to the number of neuron.
 
 AI_enhancement: program to reinforce AI
 
